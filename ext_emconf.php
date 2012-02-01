@@ -11,8 +11,8 @@
 ########################################################################
 
 $EM_CONF[$_EXTKEY] = array(
-	'title' => 'Streamio',
-	'description' => 'Adds the functionality of Streamio into TYPO3 frontend and backend.',
+	'title' => 'Streamio.com',
+	'description' => 'Adds the functionality of Streamio.com into TYPO3 frontend and backend.',
 	'category' => 'plugin',
 	'author' => 'Mattias Nilsson',
 	'author_email' => 'tollepjaer@gmail.com',

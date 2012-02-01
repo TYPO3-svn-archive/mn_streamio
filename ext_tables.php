@@ -6,7 +6,7 @@ if (!defined('TYPO3_MODE')) {
 Tx_Extbase_Utility_Extension::registerPlugin(
 	$_EXTKEY,
 	'Pi1',
-	'Stremio FE'
+	'Streamio FE'
 );
 
 //$pluginSignature = str_replace('_','',$_EXTKEY) . '_' . pi1;
@@ -18,14 +18,14 @@ Tx_Extbase_Utility_Extension::registerPlugin(
 
 
 
-t3lib_extMgm::addStaticFile($_EXTKEY, 'Configuration/TypoScript', 'Streamio');
+t3lib_extMgm::addStaticFile($_EXTKEY, 'Configuration/TypoScript', 'Streamio.com');
 
 
-t3lib_extMgm::addLLrefForTCAdescr('tx_mnstreamio_domain_model_stremioapi', 'EXT:mn_streamio/Resources/Private/Language/locallang_csh_tx_mnstreamio_domain_model_stremioapi.xml');
-t3lib_extMgm::allowTableOnStandardPages('tx_mnstreamio_domain_model_stremioapi');
-$TCA['tx_mnstreamio_domain_model_stremioapi'] = array(
+t3lib_extMgm::addLLrefForTCAdescr('tx_mnstreamio_domain_model_streamioapi', 'EXT:mn_streamio/Resources/Private/Language/locallang_csh_tx_mnstreamio_domain_model_streamioapi.xml');
+t3lib_extMgm::allowTableOnStandardPages('tx_mnstreamio_domain_model_streamioapi');
+$TCA['tx_mnstreamio_domain_model_streamioapi'] = array(
 	'ctrl' => array(
-		'title'	=> 'LLL:EXT:mn_streamio/Resources/Private/Language/locallang_db.xml:tx_mnstreamio_domain_model_stremioapi',
+		'title'	=> 'LLL:EXT:mn_streamio/Resources/Private/Language/locallang_db.xml:tx_mnstreamio_domain_model_streamioapi',
 		'label' => 'user_name',
 		'tstamp' => 'tstamp',
 		'crdate' => 'crdate',
@@ -43,8 +43,8 @@ $TCA['tx_mnstreamio_domain_model_stremioapi'] = array(
 			'starttime' => 'starttime',
 			'endtime' => 'endtime',
 		),
-		'dynamicConfigFile' => t3lib_extMgm::extPath($_EXTKEY) . 'Configuration/TCA/StremioApi.php',
-		'iconfile' => t3lib_extMgm::extRelPath($_EXTKEY) . 'Resources/Public/Icons/tx_mnstreamio_domain_model_stremioapi.gif'
+		'dynamicConfigFile' => t3lib_extMgm::extPath($_EXTKEY) . 'Configuration/TCA/StreamioApi.php',
+		'iconfile' => t3lib_extMgm::extRelPath($_EXTKEY) . 'Resources/Public/Icons/tx_mnstreamio_domain_model_streamioapi.gif'
 	),
 );
 

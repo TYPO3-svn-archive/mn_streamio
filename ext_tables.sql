@@ -1,7 +1,7 @@
 #
-# Table structure for table 'tx_mnstreamio_domain_model_stremioapi'
+# Table structure for table 'tx_mnstreamio_domain_model_streamioapi'
 #
-CREATE TABLE tx_mnstreamio_domain_model_stremioapi (
+CREATE TABLE tx_mnstreamio_domain_model_streamioapi (
 	uid int(11) NOT NULL auto_increment,
 	pid int(11) DEFAULT '0' NOT NULL,
 

@@ -2,13 +2,13 @@
 <T3locallang>
 	<meta type="array">
 		<type>module</type>
-		<description>Language labels for the Streamio extension in the FRONTEND</description>
+		<description>Language labels for the Streamio.com extension in the FRONTEND</description>
 	</meta>
 	<data type="array">
 		<languageKey index="default" type="array">
-			<label index="tx_mnstreamio_domain_model_stremioapi">StremioApi</label>
-			<label index="tx_mnstreamio_domain_model_stremioapi.user_name">userName</label>
-			<label index="tx_mnstreamio_domain_model_stremioapi.password">password</label>
+			<label index="tx_mnstreamio_domain_model_streamioapi">StreamioApi</label>
+			<label index="tx_mnstreamio_domain_model_streamioapi.user_name">userName</label>
+			<label index="tx_mnstreamio_domain_model_streamioapi.password">password</label>
 		</languageKey>
 	</data>
 </T3locallang>

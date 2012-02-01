@@ -3,8 +3,8 @@ if (!defined ('TYPO3_MODE')) {
 	die ('Access denied.');
 }
 
-$TCA['tx_mnstreamio_domain_model_stremioapi'] = array(
-	'ctrl' => $TCA['tx_mnstreamio_domain_model_stremioapi']['ctrl'],
+$TCA['tx_mnstreamio_domain_model_streamioapi'] = array(
+	'ctrl' => $TCA['tx_mnstreamio_domain_model_streamioapi']['ctrl'],
 	'interface' => array(
 		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, user_name, password',
 	),
@@ -37,8 +37,8 @@ $TCA['tx_mnstreamio_domain_model_stremioapi'] = array(
 				'items' => array(
 					array('', 0),
 				),
-				'foreign_table' => 'tx_mnstreamio_domain_model_stremioapi',
-				'foreign_table_where' => 'AND tx_mnstreamio_domain_model_stremioapi.pid=###CURRENT_PID### AND tx_mnstreamio_domain_model_stremioapi.sys_language_uid IN (-1,0)',
+				'foreign_table' => 'tx_mnstreamio_domain_model_streamioapi',
+				'foreign_table_where' => 'AND tx_mnstreamio_domain_model_streamioapi.pid=###CURRENT_PID### AND tx_mnstreamio_domain_model_streamioapi.sys_language_uid IN (-1,0)',
 			),
 		),
 		'l10n_diffsource' => array(
@@ -95,7 +95,7 @@ $TCA['tx_mnstreamio_domain_model_stremioapi'] = array(
 		),
 		'user_name' => array(
 			'exclude' => 0,
-			'label' => 'LLL:EXT:mn_streamio/Resources/Private/Language/locallang_db.xml:tx_mnstreamio_domain_model_stremioapi.user_name',
+			'label' => 'LLL:EXT:mn_streamio/Resources/Private/Language/locallang_db.xml:tx_mnstreamio_domain_model_streamioapi.user_name',
 			'config' => array(
 				'type' => 'input',
 				'size' => 30,
@@ -104,7 +104,7 @@ $TCA['tx_mnstreamio_domain_model_stremioapi'] = array(
 		),
 		'password' => array(
 			'exclude' => 0,
-			'label' => 'LLL:EXT:mn_streamio/Resources/Private/Language/locallang_db.xml:tx_mnstreamio_domain_model_stremioapi.password',
+			'label' => 'LLL:EXT:mn_streamio/Resources/Private/Language/locallang_db.xml:tx_mnstreamio_domain_model_streamioapi.password',
 			'config' => array(
 				'type' => 'input',
 				'size' => 30,
