@@ -1,4 +1,8 @@
 plugin.tx_mnstreamio {
+    settings {
+        streamioLoginUrl = https://streamio.com/users/sign_in
+        streamioApiUrl = https://streamio.com/api/v1/
+    }
 	view {
 		templateRootPath = {$plugin.tx_mnstreamio.view.templateRootPath}
 		partialRootPath = {$plugin.tx_mnstreamio.view.partialRootPath}
@@ -6,6 +10,18 @@ plugin.tx_mnstreamio {
 	}
 	persistence {
 		storagePid = {$plugin.tx_mnstreamio.persistence.storagePid}
+	}
+}
+
+ # Module configuration
+module.tx_mnstreamio {
+	settings < plugin.tx_mnstreamio.settings
+	persistence < plugin.tx_mnstreamio.persistence
+	view < plugin.tx_mnstreamio.view
+	view {
+		templateRootPath = {$module.tx_mnstreamio.view.templateRootPath}
+		partialRootPath = {$module.tx_mnstreamio.view.partialRootPath}
+		layoutRootPath = {$module.tx_mnstreamio.view.layoutRootPath}
 	}
 }
 

@@ -32,45 +32,17 @@
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  *
  */
-class Tx_MnStreamio_Controller_StreamioApiController extends Tx_Extbase_MVC_Controller_ActionController {
+class Tx_MnStreamio_Controller_StreamioBackendController extends Tx_Extbase_MVC_Controller_ActionController {
 
 	/**
-	 * streamioApiRepository
-	 *
-	 * @var Tx_MnStreamio_Domain_Repository_StreamioApiRepository
-	 */
-	protected $streamioApiRepository;
-
-    /**
-	 * injectStremioApiRepository
-	 *
-	 * @param Tx_MnStreamio_Domain_Repository_StreamioApiRepository $StreamioApiRepository
-	 * @return void
-	 */
-	public function injectStreamioApiRepository(Tx_MnStreamio_Domain_Repository_StreamioApiRepository $streamioApiRepository) {
-		$this->streamioApiRepository = $streamioApiRepository;
-	}
-
-	/**
-	 * action list
+	 * action index
 	 *
 	 * @return void
-	 * @param Tx_MnStreamio_Domain_Model_StreamioApi
 	 */
-	public function listAction() {
-		$streamioApis = $this->streamioApiRepository->findAll();
-		$this->view->assign('streamioApis', $streamioApis);
+	public function indexAction() {
+        header('Location: ' . $this->settings["streamioLoginUrl"]);
 	}
 
-	/**
-	 * action show
-	 *
-	 * @param Tx_MnStreamio_Domain_Model_StreamioApi
-	 * @return void
-	 */
-	public function showAction(Tx_MnStreamio_Domain_Model_StreamioApi $streamioApi) {
-		$this->view->assign('streamioApi', $streamioApi);
-	}
 
 }
 ?>

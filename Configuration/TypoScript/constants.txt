@@ -12,3 +12,14 @@ plugin.tx_mnstreamio {
 		storagePid = 
 	}
 }
+
+module.tx_mnstreamio {
+	view {
+        # cat=plugin.tx_mnstreamio/file; type=string; label=Path to template root (BE)
+		templateRootPath = EXT:mn_streamio/Resources/Private/Backend/Templates/
+		# cat=plugin.tx_mnstreamio/file; type=string; label=Path to template partials (BE)
+		partialRootPath = EXT:mn_streamio/Resources/Private/Partials/
+		# cat=plugin.tx_mnstreamio/file; type=string; label=Path to template layouts (BE)
+		layoutRootPath = EXT:mn_streamio/Resources/Private/Backend/Layouts/
+	}
+}

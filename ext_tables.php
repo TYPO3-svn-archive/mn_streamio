@@ -48,4 +48,25 @@ $TCA['tx_mnstreamio_domain_model_streamioapi'] = array(
 	),
 );
 
+if (TYPO3_MODE === 'BE')	{
+	/**
+	* Registers a Backend Module
+	*/
+	Tx_Extbase_Utility_Extension::registerModule(
+		$_EXTKEY,
+		'tools',					// Make module a submodule of 'web'
+		'tx_mnstreamio_m1',	// Submodule key
+		'', 						// Position
+		array(																			// An array holding the controller-action-combinations that are accessible
+			'StreamioBackend' => 'index',	// The first controller and its first action will be the default
+		),
+		array(
+			'access' => 'user,group',
+			'icon'   => 'EXT:mn_streamio/ext_icon.gif',
+			'labels' => 'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/locallang_mod.xml',
+		)
+	);
+
+}
+
 ?>
