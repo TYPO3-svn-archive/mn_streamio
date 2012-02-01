@@ -17,4 +17,6 @@ Tx_Extbase_Utility_Extension::configurePlugin(
 	)
 );
 
+$TYPO3_CONF_VARS['FE']['eID_include']['tx_mnstreamio_Streamio'] = 'EXT:mn_streamio/Eid/class.Streamio_eid.php';
+
 ?>

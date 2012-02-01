@@ -40,7 +40,8 @@ class Tx_MnStreamio_Controller_StreamioBackendController extends Tx_Extbase_MVC_
 	 * @return void
 	 */
 	public function indexAction() {
-        header('Location: ' . $this->settings["streamioLoginUrl"]);
+        $extConfig = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['mn_streamio']);
+        header('Location: ' . $extConfig["streamioLoginUrl"]);
 	}
 
 

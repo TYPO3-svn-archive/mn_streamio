@@ -16,13 +16,15 @@
     jQuery(document).ready(function() {
     
         jQuery.ajax({
-            url: streamioApiUrl + "videos.json?tags.all=awesome%2Cfunny",
+            url: streamioApiUrl + "videos.json?tags=Wildlife",
             type: "GET",
-            dataType: "JSON",
+            dataType: "JSONP",
             username: streamioUserName,
             password: streamioPassword,
-            success: function(data) {
+            success: function(data, text, status) {
                 console.log(data);
+                console.log(text);
+                console.log(status);
                 /*jQuery('#mngoogleplus_userinfo').html(
                     "<a href='" + data.url + "'>" + data.displayName + "</a><br />" 
                     + data.gender +  "<br /><img src='" + data.image.url + "' alt='" + data.displayName + "'/>"

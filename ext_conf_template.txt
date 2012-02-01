@@ -1,0 +1,6 @@
+# cat=basic; type=string; label=Streamio.com login url
+
+streamioLoginUrl = https://streamio.com/users/sign_in
+
+# cat=basic; type=string; label=Streamio.com API url
+streamioApiUrl = https://streamio.com/api/v1/
