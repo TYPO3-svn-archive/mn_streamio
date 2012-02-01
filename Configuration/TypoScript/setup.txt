@@ -1,0 +1,30 @@
+plugin.tx_mnstreamio {
+	view {
+		templateRootPath = {$plugin.tx_mnstreamio.view.templateRootPath}
+		partialRootPath = {$plugin.tx_mnstreamio.view.partialRootPath}
+		layoutRootPath = {$plugin.tx_mnstreamio.view.layoutRootPath}
+	}
+	persistence {
+		storagePid = {$plugin.tx_mnstreamio.persistence.storagePid}
+	}
+}
+
+plugin.tx_mnstreamio._CSS_DEFAULT_STYLE (
+	input.f3-form-error {
+		background-color:#FF9F9F;
+		border: 1px #FF0000 solid;
+	}
+
+	.tx-mn-streamio table {
+		border-collapse:separate;
+		border-spacing:10px;
+	}
+
+	.tx-mn-streamio table th {
+		font-weight:bold;
+	}
+
+	.tx-mn-streamio table td {
+		vertical-align:top;
+	}
+)

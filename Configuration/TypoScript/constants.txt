@@ -1,0 +1,14 @@
+plugin.tx_mnstreamio {
+	view {
+		# cat=plugin.tx_mnstreamio/file; type=string; label=Path to template root (FE)
+		templateRootPath = EXT:mn_streamio/Resources/Private/Templates/
+		# cat=plugin.tx_mnstreamio/file; type=string; label=Path to template partials (FE)
+		partialRootPath = EXT:mn_streamio/Resources/Private/Partials/
+		# cat=plugin.tx_mnstreamio/file; type=string; label=Path to template layouts (FE)
+		layoutRootPath = EXT:mn_streamio/Resources/Private/Layouts/
+	}
+	persistence {
+		# cat=plugin.tx_mnstreamio//a; type=int+; label=Default storage PID
+		storagePid = 
+	}
+}
