@@ -6,6 +6,8 @@ class Streamio_eid extends tslib_pibase {
     
     /**
      * Table_eid::main()
+     * Is called in this manner: 
+     * http://yourdomain/?eID=tx_mnstreamio_Streamio&tx_mnstreamio[action]=getStreamioData&tx_mnstreamio[streamioUid]=1
      * 
      * @return void
      */
@@ -28,8 +30,8 @@ class Streamio_eid extends tslib_pibase {
         
         switch ($this->piVars['action']) {
             case 'getStreamioData' :
-                //$result = $this->getTable(mysql_real_escape_string($this->piVars['tableName']), mysql_real_escape_string($this->piVars['fields']), mysql_real_escape_string($this->piVars['where']), mysql_real_escape_string($this->piVars['groupBy']), mysql_real_escape_string($this->piVars['orderBy']), mysql_real_escape_string($this->piVars['limit']));
-                $result = $this->getStreamioData();
+                $streamioCredentials = $this->getStreamioLoginCredentials(mysql_real_escape_string($this->piVars['streamioUid']));
+                $result = $this->getStreamioData($streamioCredentials);
             break; 
         }
         
@@ -38,19 +40,28 @@ class Streamio_eid extends tslib_pibase {
     }
     
     /**
+     * Streamio_eid::getStreamioLoginCredentials()
+     * 
+     * @param mixed $streamioUid
+     * @return
+     */
+    private function getStreamioLoginCredentials($streamioUid) {
+        $res = $GLOBALS['TYPO3_DB']->exec_SELECTquery("user_name, password", "tx_mnstreamio_domain_model_streamioapi", 'deleted != 1 AND hidden != 1 AND uid = ' . $streamioUid);
+        while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
+            $result = $row;
+        }
+        return $result;    
+    }
+    
+    /**
      * Streamio_eid::getStreamioData()
      * Get the Streamio data from an cURL request.
      * ex: https://streamio.com/api/v1/videos.json?tags=Wildlife + basic authentication
      * 
-     * @param string $userName username for service
-     * @param string $password the password for the service
-     * @param string $apiUrl api base url
-     * @param string $searchType search type, ex: videos.json
-     * @param string $filterType filter type, ex; tags=
-     * @param string $searchData data to search the api with
-     * @return json $result
+     * @param array   $loginCredentials   
+     * @return  json    $result
      */
-    private function getStreamioData($userName, $password, $apiUrl, $searchType, $filterType, $searchData) {
+    private function getStreamioData($loginCredentials) {
         
         $url = "https://streamio.com/api/v1/videos.json?tags=Wildlife";
         $ch = curl_init();    
@@ -58,7 +69,7 @@ class Streamio_eid extends tslib_pibase {
         curl_setopt($ch, CURLOPT_FAILONERROR, 1);
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);// allow redirects
         curl_setopt($ch, CURLOPT_RETURNTRANSFER,1); // return into a variable 
-        curl_setopt($ch, CURLOPT_USERPWD, "tollepjaer:e9c02cd27c22540db56552b625f175"); 
+        curl_setopt($ch, CURLOPT_USERPWD, $loginCredentials["user_name"] . ':' . $loginCredentials["password"]); 
         curl_setopt($ch, CURLOPT_TIMEOUT, 3); // times out after 4s
         curl_setopt($ch, CURLOPT_GET, 1); // set POST method
         //curl_setopt($ch, CURLOPT_POSTFIELDS, "tags=Wildlife");
