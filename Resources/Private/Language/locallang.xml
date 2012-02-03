@@ -9,6 +9,9 @@
 			<label index="tx_mnstreamio_domain_model_streamioapi">StreamioApi</label>
 			<label index="tx_mnstreamio_domain_model_streamioapi.user_name">userName</label>
 			<label index="tx_mnstreamio_domain_model_streamioapi.password">password</label>
+            <label index="streamio_search_input_label">Searchwords (use comma separation between words):</label>
+            <label index="streamio_search_button_label">Search Streamio</label>
+            <label index="streamio_search_input_empty_label">A value must be filled in to make a search!</label>
 		</languageKey>
 	</data>
 </T3locallang>

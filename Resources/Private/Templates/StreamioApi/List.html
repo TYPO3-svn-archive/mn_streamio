@@ -7,36 +7,44 @@
 <script type="text/javascript">
 
 <f:for each="{streamioApis}" as="streamioApi">
-    var streamioUserName = "{streamioApi.userName}";
-    var streamioPassword = "{streamioApi.password}";
+    var streamioRecordUid = "{streamioApi.uid}";
 </f:for>
     
-    var streamioApiUrl = "{settings.streamioApiUrl}";
-
+    //?eID=tx_mnstreamio_Streamio&tx_mnstreamio[action]=getStreamioVideosData&tx_mnstreamio[streamioUid]=1&tx_mnstreamio[searchQuery]=Test,Wildlife
+    
     jQuery(document).ready(function() {
     
-        jQuery.ajax({
-            url: streamioApiUrl + "videos.json?tags=Wildlife",
-            type: "GET",
-            dataType: "JSONP",
-            username: streamioUserName,
-            password: streamioPassword,
-            success: function(data, text, status) {
-                console.log(data);
-                console.log(text);
-                console.log(status);
-                /*jQuery('#mngoogleplus_userinfo').html(
-                    "<a href='" + data.url + "'>" + data.displayName + "</a><br />" 
-                    + data.gender +  "<br /><img src='" + data.image.url + "' alt='" + data.displayName + "'/>"
-                );*/
-            },
-            error: function(err) {
-                console.log(err);
+        jQuery("#streamio_search_button").click(function() {
+            var searchValue = jQuery("#streamio_search_input").val();
+            if(searchValue != "") {
+                jQuery.ajax({
+                    url: "?eID=tx_mnstreamio_Streamio&tx_mnstreamio[action]=getStreamioVideosData&tx_mnstreamio[streamioUid]=" + streamioRecordUid 
+                        + "&tx_mnstreamio[searchQuery]=" + searchValue,
+                    type: "GET",
+                    success: function(data) {
+                        console.log(data);
+                    },
+                    error: function(err) {
+                        console.log(err);
+                    }
+                });
             }
-        });        
+            else {
+                alert('<f:translate key="streamio_search_input_empty_label" />');
+            } 
+        });
+         
     
     });
     
 </script>
+
+<div id="streamio_search_container">
+
+    <f:translate key="streamio_search_input_label" />
+    <input type="text" id="streamio_search_input" />
+    <input type="button" value="<f:translate key='streamio_search_button_label' />" id="streamio_search_button" />
+
+</div>
 
 </f:section>
