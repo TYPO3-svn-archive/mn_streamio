@@ -60,6 +60,7 @@ class Tx_MnStreamio_Controller_StreamioApiController extends Tx_Extbase_MVC_Cont
 	public function listAction() {
 		$streamioApis = $this->streamioApiRepository->findAll();
 		$this->view->assign('streamioApis', $streamioApis);
+        $this->view->assign('requestUrl', t3lib_div::getIndpEnv('TYPO3_SITE_URL'));
 	}
 
 	/**

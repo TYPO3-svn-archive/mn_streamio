@@ -10,6 +10,7 @@
     var streamioRecordUid = "{streamioApi.uid}";
 </f:for>
     
+    var requestUrl = "{requestUrl}";
     //?eID=tx_mnstreamio_Streamio&tx_mnstreamio[action]=getStreamioVideosData&tx_mnstreamio[streamioUid]=1&tx_mnstreamio[searchQuery]=Test,Wildlife
     
     jQuery(document).ready(function() {
@@ -18,10 +19,15 @@
             var searchValue = jQuery("#streamio_search_input").val();
             if(searchValue != "") {
                 jQuery.ajax({
-                    url: "?eID=tx_mnstreamio_Streamio&tx_mnstreamio[action]=getStreamioVideosData&tx_mnstreamio[streamioUid]=" + streamioRecordUid 
+                    url: requestUrl + "?eID=tx_mnstreamio_Streamio&tx_mnstreamio[action]=getStreamioVideosData&tx_mnstreamio[streamioUid]=" + streamioRecordUid 
                         + "&tx_mnstreamio[searchQuery]=" + searchValue,
                     type: "GET",
                     success: function(data) {
+                        var items = "";
+                        jQuery.each(data.transcodings, function() {
+                            items += this.title + "<br />";   
+                        });
+                        jQuery("#streamio_search_result").html(items);
                         console.log(data);
                     },
                     error: function(err) {
@@ -44,6 +50,8 @@
     <f:translate key="streamio_search_input_label" />
     <input type="text" id="streamio_search_input" />
     <input type="button" value="<f:translate key='streamio_search_button_label' />" id="streamio_search_button" />
+
+    <div id="streamio_search_result"></div>
 
 </div>
 
