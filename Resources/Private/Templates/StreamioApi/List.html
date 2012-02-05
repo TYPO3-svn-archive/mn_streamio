@@ -24,7 +24,7 @@
                     type: "GET",
                     success: function(data) {
                         var items = "";
-                        jQuery.each(data.transcodings, function() {
+                        jQuery.each(jQuery.parseJSON(data), function() {
                             items += this.title + "<br />";   
                         });
                         jQuery("#streamio_search_result").html(items);
