@@ -34,6 +34,10 @@ class Streamio_eid extends tslib_pibase {
             case 'getStreamioVideosData' :
                 $streamioCredentials = $this->getStreamioLoginCredentials(mysql_real_escape_string($this->piVars['streamioUid']));
                 $result = $this->getStreamioVideosData($extConfig["streamioApiUrl"], $streamioCredentials, mysql_real_escape_string($this->piVars['searchQuery']));
+            break;
+            case 'getStreamioPlayers' :
+                $streamioCredentials = $this->getStreamioLoginCredentials(mysql_real_escape_string($this->piVars['streamioUid']));
+                $result = $this->getStreamioPlayers($extConfig["streamioApiUrl"], $streamioCredentials);
             break; 
         }
         
@@ -71,6 +75,23 @@ class Streamio_eid extends tslib_pibase {
     private function getStreamioVideosData($apiUrl, $loginCredentials, $searchQuery) {
         
         $url = $apiUrl . "videos.json?tags=" . $searchQuery;
+        $ch = curl_init();    
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_FAILONERROR, 1);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);// allow redirects
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER,1); // return into a variable 
+        curl_setopt($ch, CURLOPT_USERPWD, $loginCredentials["user_name"] . ':' . $loginCredentials["password"]); 
+        curl_setopt($ch, CURLOPT_TIMEOUT, 3); // times out after 4s
+        curl_setopt($ch, CURLOPT_GET, 1); // set POST method
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        $result = curl_exec($ch); 
+        
+        return $result;
+    }
+    
+    private function getStreamioPlayers($apiUrl, $loginCredentials) {
+        
+        $url = $apiUrl . "players.json";
         $ch = curl_init();    
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_FAILONERROR, 1);

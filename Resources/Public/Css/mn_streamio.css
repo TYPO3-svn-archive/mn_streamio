@@ -1,0 +1,7 @@
+.streamio_search_result {
+    clear: both;
+}
+
+.streamio_search_result img, .streamio_search_result p, .streamio_search_result h3 {
+    float: left;
+}

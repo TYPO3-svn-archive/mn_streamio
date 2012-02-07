@@ -1,6 +1,7 @@
 <f:layout name="Default" />
 
 <f:section name="main">
+<link media="all" type="text/css" rel="stylesheet" href="typo3conf/ext/mn_streamio/Resources/Public/Css/mn_streamio.css" />
 
 <f:flashMessages />
 
@@ -25,9 +26,10 @@
                     success: function(data) {
                         var items = "";
                         jQuery.each(jQuery.parseJSON(data), function() {
-                            items += this.title + "<br />";   
+                            items += "<div class='streamio_search_result'><img src='http://" + this.screenshot.thumb + "' alt='" + this.title + "' />" 
+                            + "<h3>" + this.title + "</h3><p>" + this.tags + "<br />" + this.description + "</p></div>";   
                         });
-                        jQuery("#streamio_search_result").html(items);
+                        jQuery("#streamio_search_results").html(items);
                         console.log(data);
                     },
                     error: function(err) {
@@ -51,8 +53,10 @@
     <input type="text" id="streamio_search_input" />
     <input type="button" value="<f:translate key='streamio_search_button_label' />" id="streamio_search_button" />
 
-    <div id="streamio_search_result"></div>
+    <div id="streamio_search_results"></div>
 
 </div>
+
+<!--<iframe class="streamio-player" type="text/html" width="480" height="270" src="http://streamio.com/api/v1/videos/4f292b7a11581e60ca00975a/public_show?skin=goplayer-white-skin.swf&loop=true&enable-rtmp=true&skin:show-title=true&skin:show-share-button=true&streamio:tracker=global" frameborder="0"></iframe>-->
 
 </f:section>
