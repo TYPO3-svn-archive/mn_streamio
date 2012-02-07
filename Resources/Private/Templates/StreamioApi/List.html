@@ -16,6 +16,7 @@
     
     jQuery(document).ready(function() {
     
+        //On search button click
         jQuery("#streamio_search_button").click(function() {
             var searchValue = jQuery("#streamio_search_input").val();
             if(searchValue != "") {
@@ -26,8 +27,9 @@
                     success: function(data) {
                         var items = "";
                         jQuery.each(jQuery.parseJSON(data), function() {
-                            items += "<div class='streamio_search_result'><img src='http://" + this.screenshot.thumb + "' alt='" + this.title + "' />" 
-                            + "<h3>" + this.title + "</h3><p>" + this.tags + "<br />" + this.description + "</p></div>";   
+                            items += "<div class='streamio_search_result'><input type='hidden' value='" + this.id + "' class='streamio_search_result_item_id' /><div class='streamio_search_result_left'>" 
+                            + "<img src='http://" + this.screenshot.thumb + "' alt='" + this.title + "' /></div>" 
+                            + "<div class='streamio_search_result_right'><h3><a href='javascript:void(0);' class=''>" + this.title + "</a></h3><p>" + this.tags + "<br />" + this.description + "</p></div></div>";   
                         });
                         jQuery("#streamio_search_results").html(items);
                         console.log(data);
@@ -41,9 +43,27 @@
                 alert('<f:translate key="streamio_search_input_empty_label" />');
             } 
         });
-         
-    
+        
+        jQuery( "#dialog-modal" ).dialog({
+			autoOpen: false,
+			show: "blind",
+			hide: "explode",
+            modal: true
+		});
+        
     });
+    
+    function playStreamioVideo() {
+        //On search result item click, then play video in modal window
+        /*jQuery(".streamio_search_result").click(function() {
+            var videoId = jQuery(this).find(".streamio_search_result_item_id").val();
+            if(videoId != "") {
+                alert(videoId);
+            }
+        });*/
+        jQuery( "#dialog-modal" ).dialog( "open" );
+			return false;
+    }
     
 </script>
 
@@ -58,5 +78,9 @@
 </div>
 
 <!--<iframe class="streamio-player" type="text/html" width="480" height="270" src="http://streamio.com/api/v1/videos/4f292b7a11581e60ca00975a/public_show?skin=goplayer-white-skin.swf&loop=true&enable-rtmp=true&skin:show-title=true&skin:show-share-button=true&streamio:tracker=global" frameborder="0"></iframe>-->
+
+<div id="dialog-modal" title="Basic modal dialog" style="display: none;">
+	<p>Adding the modal overlay screen makes the dialog look more prominent because it dims out the page content.</p>
+</div>
 
 </f:section>

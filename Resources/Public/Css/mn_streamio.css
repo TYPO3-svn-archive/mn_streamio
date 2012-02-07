@@ -1,7 +1,28 @@
 .streamio_search_result {
     clear: both;
+    margin-bottom: 10px;
+    float: left;
 }
 
-.streamio_search_result img, .streamio_search_result p, .streamio_search_result h3 {
+.streamio_search_result_left {
+    float: left;
+    width: 50%;
+}
+
+.streamio_search_result img {
+    float: left;
+}
+
+.streamio_search_result_right {
+    float: left;
+    width: 50%;    
+}
+
+.streamio_search_result h3 {
+    float: left;
+    width: 100%;
+}
+
+.streamio_search_result p {
     float: left;
 }
