@@ -2,6 +2,7 @@
 
 <f:section name="main">
 <link media="all" type="text/css" rel="stylesheet" href="typo3conf/ext/mn_streamio/Resources/Public/Css/mn_streamio.css" />
+<link media="all" type="text/css" rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.17/themes/base/jquery-ui.css" />
 
 <f:flashMessages />
 
@@ -11,10 +12,18 @@
     var streamioRecordUid = "{streamioApi.uid}";
 </f:for>
     
+    var streamioApiUrl = "{streamioApiUrl}";
     var requestUrl = "{requestUrl}";
-    //?eID=tx_mnstreamio_Streamio&tx_mnstreamio[action]=getStreamioVideosData&tx_mnstreamio[streamioUid]=1&tx_mnstreamio[searchQuery]=Test,Wildlife
+    var defaultVideoHeight = "{defaultVideoHeight}";
+    var defaultVideoWidth = "{defaultVideoWidth}";
     
     jQuery(document).ready(function() {
+    
+        jQuery("#dialog-modal").dialog({
+            autoOpen: false,
+            modal: true,
+            draggable: false
+        });
     
         //On search button click
         jQuery("#streamio_search_button").click(function() {
@@ -26,16 +35,21 @@
                     type: "GET",
                     success: function(data) {
                         var items = "";
-                        jQuery.each(jQuery.parseJSON(data), function() {
-                            items += "<div class='streamio_search_result'><input type='hidden' value='" + this.id + "' class='streamio_search_result_item_id' /><div class='streamio_search_result_left'>" 
-                            + "<img src='http://" + this.screenshot.thumb + "' alt='" + this.title + "' /></div>" 
-                            + "<div class='streamio_search_result_right'><h3><a href='javascript:void(0);' class=''>" + this.title + "</a></h3><p>" + this.tags + "<br />" + this.description + "</p></div></div>";   
-                        });
+                        var itemData = jQuery.parseJSON(data);
+                        if(itemData != "") {
+                            jQuery.each(itemData, function() {
+                                items += "<div class='streamio_search_result'><input type='hidden' value='" + JSON.stringify(this) + "' class='streamio_search_result_item_id' /><div class='streamio_search_result_left'>" 
+                                + "<img src='http://" + this.screenshot.thumb + "' alt='" + this.title + "' /></div>" 
+                                + "<div class='streamio_search_result_right'><h3><a href='javascript:void(0);' onclick='javascript:playStreamioVideo(this);'>" + this.title + "</a></h3><p>" + this.tags + "<br />" + this.description + "</p></div></div>";   
+                            });    
+                        }
+                        else {
+                            items = '<strong><f:translate key="no_search_result_label" /></strong>';
+                        }
                         jQuery("#streamio_search_results").html(items);
-                        console.log(data);
                     },
                     error: function(err) {
-                        console.log(err);
+                        alert(err);
                     }
                 });
             }
@@ -44,25 +58,28 @@
             } 
         });
         
-        jQuery( "#dialog-modal" ).dialog({
-			autoOpen: false,
-			show: "blind",
-			hide: "explode",
-            modal: true
-		});
-        
     });
     
-    function playStreamioVideo() {
-        //On search result item click, then play video in modal window
-        /*jQuery(".streamio_search_result").click(function() {
-            var videoId = jQuery(this).find(".streamio_search_result_item_id").val();
-            if(videoId != "") {
-                alert(videoId);
-            }
-        });*/
-        jQuery( "#dialog-modal" ).dialog( "open" );
-			return false;
+    //Trigger the modal window and output html
+    function playStreamioVideo(element) {
+        var videoData = jQuery(element).parent().parent().parent().find(".streamio_search_result_item_id").val();
+        if(videoData != "") {
+            jQuery("#dialog-modal").html(getStreamioVideoContent(videoData));
+            jQuery("#dialog-modal").dialog("open");    
+        }
+        return false;
+    }
+    
+    //Get the video content as HTML
+    function getStreamioVideoContent(videoData) {
+        var data = jQuery.parseJSON(videoData);
+        var modalWindowId = "#dialog-modal";
+        jQuery(modalWindowId).dialog("option", "title", data.title);
+        jQuery(modalWindowId).dialog("option", "height", (parseInt(defaultVideoHeight) + 50));
+        jQuery(modalWindowId).dialog("option", "width", (parseInt(defaultVideoWidth) + 30));
+        var html = '<iframe class="streamio-player" type="text/html" width="' + defaultVideoWidth + '" height="' + defaultVideoHeight 
+            + '" src="' + streamioApiUrl + 'videos/' + data.id + '/public_show?&streamio:tracker=global" frameborder="0"></iframe>';
+        return html;
     }
     
 </script>
@@ -77,10 +94,6 @@
 
 </div>
 
-<!--<iframe class="streamio-player" type="text/html" width="480" height="270" src="http://streamio.com/api/v1/videos/4f292b7a11581e60ca00975a/public_show?skin=goplayer-white-skin.swf&loop=true&enable-rtmp=true&skin:show-title=true&skin:show-share-button=true&streamio:tracker=global" frameborder="0"></iframe>-->
-
-<div id="dialog-modal" title="Basic modal dialog" style="display: none;">
-	<p>Adding the modal overlay screen makes the dialog look more prominent because it dims out the page content.</p>
-</div>
+<div id="dialog-modal" title=""></div>
 
 </f:section>

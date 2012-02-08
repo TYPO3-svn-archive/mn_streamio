@@ -4,3 +4,9 @@ streamioLoginUrl = https://streamio.com/users/sign_in
 
 # cat=basic; type=string; label=Streamio.com API url
 streamioApiUrl = https://streamio.com/api/v1/
+
+# cat=basic; type=string; label=Default video height
+defaultVideoHeight = 270
+
+# cat=basic; type=string; label=Default video width
+defaultVideoWidth = 480

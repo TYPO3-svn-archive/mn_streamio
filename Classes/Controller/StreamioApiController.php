@@ -60,6 +60,10 @@ class Tx_MnStreamio_Controller_StreamioApiController extends Tx_Extbase_MVC_Cont
 	public function listAction() {
 		$streamioApis = $this->streamioApiRepository->findAll();
 		$this->view->assign('streamioApis', $streamioApis);
+        $extConfig = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['mn_streamio']);
+        $this->view->assign('streamioApiUrl', $extConfig["streamioApiUrl"]);
+        $this->view->assign('defaultVideoHeight', $extConfig["defaultVideoHeight"]);
+        $this->view->assign('defaultVideoWidth', $extConfig["defaultVideoWidth"]);
         $this->view->assign('requestUrl', t3lib_div::getIndpEnv('TYPO3_SITE_URL'));
 	}
 
