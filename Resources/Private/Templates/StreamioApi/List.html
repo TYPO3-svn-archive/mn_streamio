@@ -27,38 +27,50 @@
     
         //On search button click
         jQuery("#streamio_search_button").click(function() {
-            var searchValue = jQuery("#streamio_search_input").val();
-            if(searchValue != "") {
-                jQuery.ajax({
-                    url: requestUrl + "?eID=tx_mnstreamio_Streamio&tx_mnstreamio[action]=getStreamioVideosData&tx_mnstreamio[streamioUid]=" + streamioRecordUid 
-                        + "&tx_mnstreamio[searchQuery]=" + searchValue,
-                    type: "GET",
-                    success: function(data) {
-                        var items = "";
-                        var itemData = jQuery.parseJSON(data);
-                        if(itemData != "") {
-                            jQuery.each(itemData, function() {
-                                items += "<div class='streamio_search_result'><input type='hidden' value='" + JSON.stringify(this) + "' class='streamio_search_result_item_id' /><div class='streamio_search_result_left'>" 
-                                + "<img src='http://" + this.screenshot.thumb + "' alt='" + this.title + "' /></div>" 
-                                + "<div class='streamio_search_result_right'><h3><a href='javascript:void(0);' onclick='javascript:playStreamioVideo(this);'>" + this.title + "</a></h3><p>" + this.tags + "<br />" + this.description + "</p></div></div>";   
-                            });    
-                        }
-                        else {
-                            items = '<strong><f:translate key="no_search_result_label" /></strong>';
-                        }
-                        jQuery("#streamio_search_results").html(items);
-                    },
-                    error: function(err) {
-                        alert(err);
-                    }
-                });
-            }
-            else {
-                alert('<f:translate key="streamio_search_input_empty_label" />');
-            } 
+            makeSearchRequest();
         });
         
+        //On enter click in searchfield        
+        jQuery("#streamio_search_input").keypress(function(e) {
+            if(e.which == 13) {
+                makeSearchRequest();
+            }
+        });
+
+        
     });
+    
+    function makeSearchRequest() {
+        var searchValue = jQuery("#streamio_search_input").val();
+        if(searchValue != "") {
+            jQuery.ajax({
+                url: requestUrl + "?eID=tx_mnstreamio_Streamio&tx_mnstreamio[action]=getStreamioVideosData&tx_mnstreamio[streamioUid]=" + streamioRecordUid 
+                    + "&tx_mnstreamio[searchQuery]=" + searchValue,
+                type: "GET",
+                success: function(data) {
+                    var items = "";
+                    var itemData = jQuery.parseJSON(data);
+                    if(itemData != "") {
+                        jQuery.each(itemData, function() {
+                            items += "<div class='streamio_search_result'><input type='hidden' value='" + JSON.stringify(this) + "' class='streamio_search_result_item_id' /><div class='streamio_search_result_left'>" 
+                            + "<img src='http://" + this.screenshot.thumb + "' alt='" + this.title + "' /></div>" 
+                            + "<div class='streamio_search_result_right'><h3><a href='javascript:void(0);' onclick='javascript:playStreamioVideo(this);'>" + this.title + "</a></h3><p>" + this.tags + "<br />" + this.description + "</p></div></div>";   
+                        });    
+                    }
+                    else {
+                        items = '<strong><f:translate key="no_search_result_label" /></strong>';
+                    }
+                    jQuery("#streamio_search_results").html(items);
+                },
+                error: function(err) {
+                    alert(err);
+                }
+            });
+        }
+        else {
+            alert('<f:translate key="streamio_search_input_empty_label" />');
+        } 
+    }
     
     //Trigger the modal window and output html
     function playStreamioVideo(element) {
